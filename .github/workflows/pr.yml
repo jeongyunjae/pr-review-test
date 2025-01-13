@@ -16,7 +16,7 @@ jobs:
       - name: Add D-n Label to PR
         uses: naver/simple-labeler@latest
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.MY_GITHUB_TOKEN }}
           labels: 'D-3'
           duplicate: 'D-*'
 
@@ -28,7 +28,7 @@ jobs:
       - name: Update D-n Labels
         uses: naver/d-day-labeler@latest
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.MY_GITHUB_TOKEN }}
 
   # 3. 평일 오전 10시 D-n PR 리뷰 요청 Slack 알림
   request_pr_review:
@@ -38,6 +38,6 @@ jobs:
       - name: Request PR Review
         uses: naver/request-pr-review@v1.2.1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.MY_GITHUB_TOKEN }}
           slackBotToken: ${{ secrets.SLACK_BOT_TOKEN }}
           repoUrl: 'https://github.com/your-repo-url'
