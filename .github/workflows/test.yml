@@ -1,8 +1,6 @@
 name: PR Automation Workflow
 
 on:
-  pull_request:
-    types: [opened, ready_for_review]
   schedule:
     - cron: '*/1 * * * *' # 1분마다 실행
 
