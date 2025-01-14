@@ -2,7 +2,7 @@ name: Update D-n Label
 
 on:
   schedule:
-    - cron: '12 4 * * 1-5' # 매일 자정(KST) 실행 (UTC 기준 15시)
+    - cron: '20 4 * * 1-5'
 
 jobs:
   update_d_n_label:

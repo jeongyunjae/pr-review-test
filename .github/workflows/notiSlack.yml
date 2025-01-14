@@ -2,7 +2,7 @@ name: PR Review Slack Notifier
 
 on:
   schedule:
-    - cron: '10 4 * * 1-5' # 평일 오전 10시(KST) 실행 (UTC 기준 1시)
+    - cron: '20 4 * * 1-5'
 
 jobs:
   request_pr_review:
