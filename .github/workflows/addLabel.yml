@@ -1,0 +1,16 @@
+name: PR Labeler
+
+on:
+  pull_request:
+    types: [opened, ready_for_review]
+
+jobs:
+  add_d_n_label:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add D-n Label to PR
+        uses: naver/simple-labeler@latest
+        with:
+          token: ${{ secrets.MY_GITHUB_TOKEN }}
+          labels: 'D-3'
+          duplicate: 'D-*'
