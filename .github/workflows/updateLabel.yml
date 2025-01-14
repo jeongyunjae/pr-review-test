@@ -1,6 +1,7 @@
 name: Update D-n Label
 
 on:
+  workflow_dispatch: # 수동 실행 가능
   schedule:
     - cron: '20 4 * * 1-5'
 
