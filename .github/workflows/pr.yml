@@ -1,0 +1,43 @@
+name: PR Automation Workflow
+
+on:
+  pull_request:
+    types: [opened, ready_for_review]
+  schedule:
+    - cron: '0 15 * * *' # 매일 자정(KST) 실행 (UTC 기준 15시)
+    - cron: '0 1 * * 1-5' # 평일 오전 10시(KST) 실행 (UTC 기준 1시)
+
+jobs:
+  # 1. PR 생성 시 D-n 라벨 자동 추가
+  add_d_n_label:
+    if: github.event_name == 'pull_request' && (github.event.action == 'opened' || github.event.action == 'ready_for_review')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add D-n Label to PR
+        uses: naver/simple-labeler@latest
+        with:
+          token: ${{ secrets.MY_GITHUB_TOKEN }}
+          labels: 'D-5'
+          duplicate: 'D-*'
+
+  # 2. 매일 자정 D-n Label 업데이트 (D-n -> D-(n-1))
+  update_d_n_label:
+    if: github.event_name == 'schedule' && github.event.schedule == 'cron' && github.event.cron == '0 15 * * *'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update D-n Labels
+        uses: naver/d-day-labeler@latest
+        with:
+          token: ${{ secrets.MY_GITHUB_TOKEN }}
+
+  # 3. 평일 오전 10시 D-n PR 리뷰 요청 Slack 알림
+  request_pr_review:
+    if: github.event_name == 'schedule' && github.event.schedule == 'cron' && github.event.cron == '0 1 * * 1-5'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Request PR Review
+        uses: naver/request-pr-review@v1.2.1
+        with:
+          token: ${{ secrets.MY_GITHUB_TOKEN }}
+          slackBotToken: ${{ secrets.SLACK_BOT_TOKEN }}
+          repoUrl: 'https://github.com/your-repo-url'
