@@ -6,6 +6,11 @@ on:
   schedule:
     - cron: '*/1 * * * *' # 1분마다 실행
 
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
 jobs:
   # 1. PR 생성 시 D-n 라벨 자동 추가
   add_d_n_label:
