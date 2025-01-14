@@ -1,7 +1,7 @@
 name: Update D-n Labels
 on:
   schedule:
-    - cron: '*/1 * * * *' # 1분마다 실행
+    - cron: '*/2 * * * *' # 1분마다 실행
 jobs:
   d-day-labeler:
     runs-on: [ubuntu-latest]
